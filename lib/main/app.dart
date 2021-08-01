@@ -1,4 +1,5 @@
 import 'package:doctor_bima/models/doctors_list_model.dart';
+import 'package:doctor_bima/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -33,6 +34,9 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
   }
 
+  List<NavigatorObserver> get getNavigatorObservers =>
+      <NavigatorObserver>[routeObserver];
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -48,6 +52,7 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
             accentColor: AppColors.accent,
             primaryColor: AppColors.primary,
             fontFamily: AppFont.roboto),
+        navigatorObservers: getNavigatorObservers,    
         localizationsDelegates: [
           Strings.delegate,
           GlobalMaterialLocalizations.delegate,

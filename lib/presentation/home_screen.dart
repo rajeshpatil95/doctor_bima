@@ -10,20 +10,43 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doctor_bima/bloc/bimaDoctors/bima_doctors_bloc.dart';
 import 'package:doctor_bima/bloc/bimaDoctors/bima_doctors_event.dart';
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 class HomeScreen extends StatefulWidget {
   HomeScreen();
 
   @override
-  _CartPageState createState() => _CartPageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _CartPageState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with RouteAware {
   @override
   void initState() {
     super.initState();
 
     BlocProvider.of<BimaDoctorsBloc>(context)
         .add(GetBimaDoctorsListEvent(context: context));
+  }
+
+  @override
+  void didPush() {}
+
+  @override
+  void didPopNext() async {
+    BlocProvider.of<BimaDoctorsBloc>(context)
+        .add(GetBimaDoctorsListEvent(context: context));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    routeObserver.unsubscribe(this);
   }
 
   Future<bool> _onBackPressed(BuildContext context) async {
@@ -33,7 +56,8 @@ class _CartPageState extends State<HomeScreen> {
   Widget bimaDoctorTileWidget(DoctorDetailsModel doctorsDetailsModel) {
     return ListTile(
       onTap: () {
-         Navigator.pushNamed(context, Routes.doctorDetailsScreen, arguments: doctorsDetailsModel);
+        Navigator.pushNamed(context, Routes.doctorDetailsScreen,
+            arguments: doctorsDetailsModel);
       },
       leading: CircleAvatar(
         radius: 20.0,

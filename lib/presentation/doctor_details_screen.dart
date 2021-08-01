@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:doctor_bima/components/custom_text_field.dart';
+import 'package:doctor_bima/di/di_initializer.dart';
 import 'package:doctor_bima/models/doctors_list_model.dart';
+import 'package:doctor_bima/storage/shared_preferences.dart';
 import 'package:doctor_bima/style/app_colors.dart';
 import 'package:doctor_bima/style/font.dart';
 import 'package:doctor_bima/style/spacing.dart';
@@ -33,6 +37,26 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
     lastNameTextController.text = widget?.doctorDetailsModel?.last_name;
     contactNoTextController.text =
         widget?.doctorDetailsModel?.primary_contact_no;
+  }
+
+  void updateDoctorDetailsList() async {
+    String localStorageString = await DI
+        .inject<Preferences>()
+        .getStringForKey(preferencesKeys.kDoctorsListData);
+    List<DoctorDetailsModel> doctorDetailsList = jsonDecode(localStorageString)
+        .map<DoctorDetailsModel>((dynamic doctorDetailsModel) =>
+            DoctorDetailsModel.fromJson(doctorDetailsModel))
+        .toList();
+
+    doctorDetailsList.forEach((element) {
+      if (element.id == widget.doctorDetailsModel.id) {
+        element.first_name = firstNameTextController.text;
+        element.last_name = lastNameTextController.text;
+        element.primary_contact_no = contactNoTextController.text;
+      }
+    });
+    await DI.inject<Preferences>().setStringForKey(
+        preferencesKeys.kDoctorsListData, jsonEncode(doctorDetailsList));
   }
 
   @override
@@ -86,7 +110,9 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                 areFieldsEditable = !areFieldsEditable;
                               });
 
-                              if (!areFieldsEditable) {}
+                              if (!areFieldsEditable) {
+                                updateDoctorDetailsList();
+                              }
                             },
                             child: Container(
                               width: 120,
