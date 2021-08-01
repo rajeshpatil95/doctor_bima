@@ -1,4 +1,5 @@
 class Routes {
   Routes._();
-  static const String weatherReportScreen = "/weather_report_screen";
+  static const String homeScreen = "/homeScreen";
+  static const String doctorDetailsScreen = "/doctorDetailsScreen";
 }

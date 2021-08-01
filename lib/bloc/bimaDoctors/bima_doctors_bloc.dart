@@ -8,7 +8,8 @@ import 'bima_doctors_state.dart';
 class BimaDoctorsBloc extends Bloc<BimaDoctorsEvent, BimaDoctorsState> {
   final BimaDoctorsRepository bimaDoctorsRepository;
 
-  BimaDoctorsBloc(this.bimaDoctorsRepository) : super(GetDoctorsListInitialState());
+  BimaDoctorsBloc(this.bimaDoctorsRepository)
+      : super(GetDoctorsListInitialState());
 
   List<DoctorDetailsModel> doctorDetailsList = List<DoctorDetailsModel>();
 
@@ -18,7 +19,11 @@ class BimaDoctorsBloc extends Bloc<BimaDoctorsEvent, BimaDoctorsState> {
       yield GetDoctorsListInitialState();
       yield GetDoctorsListLoadingState();
       try {
-        this.doctorDetailsList = await bimaDoctorsRepository.getBimaDoctorsList();
+        this.doctorDetailsList =
+            await bimaDoctorsRepository.getBimaDoctorsList();
+        //Sorting list based on rating
+        this.doctorDetailsList?.sort(
+            (a, b) => double.parse(b.rating).compareTo(double.parse(a.rating)));
         print("GetDoctorsListEvent Success: ${this.doctorDetailsList[0].first_name}");
 
         yield GetDoctorsListSuccessState(doctorsListModel: doctorDetailsList);

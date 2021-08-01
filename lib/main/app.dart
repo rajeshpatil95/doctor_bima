@@ -1,3 +1,4 @@
+import 'package:doctor_bima/models/doctors_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,7 +35,8 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: AppColors.primary));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: AppColors.primary));
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return getAppWidget();
   }
@@ -53,16 +55,17 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
           GlobalCupertinoLocalizations.delegate
         ],
         supportedLocales: Strings.delegate.supportedLocales,
+        routes: {
+          Routes.homeScreen: (context) => navigateToHomeScreen()
+        },
         onGenerateRoute: (settings) {
-          if (settings.name == Routes.weatherReportScreen) {
-            return navigateToWeatherReportScreen();
+          if (settings.name == Routes.homeScreen) {
+            return navigateToHomeScreen();
+          } else if (settings.name == Routes.doctorDetailsScreen) {
+            return navigateToDoctorDetailsScreen(settings);
           }
           return null;
         },
-        initialRoute: Routes.weatherReportScreen,
-        routes: {
-          Routes.weatherReportScreen: (context) =>
-              navigateToWeatherReportScreen(),
-        });
+        initialRoute: Routes.homeScreen);
   }
 }
