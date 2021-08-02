@@ -21,11 +21,12 @@ class AppSpacing {
   static const sizeBoxHt60 = const SizedBox(height: 60.0);
   static const sizeBoxHt50 = const SizedBox(height: 50.0);
   static const sizeBoxHt80 = const SizedBox(height: 80.0);
-  static const sizeBoxHt100 = const SizedBox(height: 100.0);
   static const sizeBoxHt40 = const SizedBox(height: 40.0);
   static const sizeBoxHt30 = const SizedBox(height: 30.0);
   static const sizeBoxHt32 = const SizedBox(height: 32.0);
   static const sizeBoxHt44 = const SizedBox(height: 44.0);
+  static const sizeBoxHt100 = const SizedBox(height: 100.0);
+  static const sizeBoxHt300 = const SizedBox(height: 300.0);
 
   //width
   static const sizeBoxWt3 = const SizedBox(width: 3.0);

@@ -1,5 +1,5 @@
 import 'package:doctor_bima/models/doctors_list_model.dart';
-import 'package:doctor_bima/presentation/home_screen.dart';
+import 'package:doctor_bima/presentation/dashboard/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -61,7 +61,9 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
         ],
         supportedLocales: Strings.delegate.supportedLocales,
         routes: {
-          Routes.homeScreen: (context) => navigateToHomeScreen()
+          Routes.homeScreen: (context) => navigateToHomeScreen(),
+          Routes.loginScreen: (context) => navigateToLoginScreen(),
+          Routes.otpValidationScreen: (context) => navigateToOtpValidationScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == Routes.homeScreen) {
@@ -71,6 +73,6 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
           }
           return null;
         },
-        initialRoute: Routes.homeScreen);
+        initialRoute: Routes.loginScreen);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doctor_bima/analytics/analytics_manager.dart';
@@ -8,7 +9,7 @@ import 'package:doctor_bima/di/di_initializer.dart';
 import 'package:doctor_bima/main/app.dart';
 import 'dart:async';
 import 'package:doctor_bima/native/platform_utils.dart';
-import 'package:sentry/sentry.dart';
+// import 'package:sentry/sentry.dart';
 
 defaultMain() {
   FlutterError.onError = (FlutterErrorDetails details) async {
@@ -20,12 +21,14 @@ defaultMain() {
   };
 
   runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    Firebase.initializeApp();
     DI.initializeDependencies();
     AppAnalyticsManager.init();
     Bloc.observer = MTBlocObserver();
     runApp(StateContainer(child: LaunchApp()));
   }, (Object error, StackTrace stackTrace) async {
-    final SentryClient sentry = await Sentry.initSentryClient();
-    Sentry.reportError(sentry, error, stackTrace);
+    // final SentryClient sentry = await Sentry.initSentryClient();
+    // Sentry.reportError(sentry, error, stackTrace);
   });
 }

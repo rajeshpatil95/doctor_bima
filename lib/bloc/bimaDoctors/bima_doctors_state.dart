@@ -6,7 +6,6 @@ abstract class BimaDoctorsState extends Equatable {
   List<Object> get props => [];
 }
 
-//Get WeatherByCityName
 class GetDoctorsListInitialState extends BimaDoctorsState {
   GetDoctorsListInitialState();
 }
