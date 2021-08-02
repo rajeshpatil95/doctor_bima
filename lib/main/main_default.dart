@@ -25,7 +25,7 @@ defaultMain() {
     Firebase.initializeApp();
     DI.initializeDependencies();
     AppAnalyticsManager.init();
-    Bloc.observer = MTBlocObserver();
+    Bloc.observer = DBBlocObserver();
     runApp(StateContainer(child: LaunchApp()));
   }, (Object error, StackTrace stackTrace) async {
     // final SentryClient sentry = await Sentry.initSentryClient();

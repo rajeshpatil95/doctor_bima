@@ -47,9 +47,6 @@ class NativePlatform {
 
   static String _getAndroidMethodName(NativeMethod nativeMethod) {
     switch (nativeMethod) {
-      case NativeMethod.OAuthToken:
-        return "getOAuthToken";
-
       case NativeMethod.BaseUrl:
         return "getBaseUrl";
 
@@ -62,17 +59,8 @@ class NativePlatform {
       case NativeMethod.LogException:
         return "logException";
 
-      case NativeMethod.HandlePinLock:
-        return "handlePinLock";
-
-      case NativeMethod.IsValidPincode:
-        return "isValidPincode";
-
-      case NativeMethod.GetSupportedCities:
-        return "getSupportedCities";
-
-      case NativeMethod.GetCityStateMap:
-        return "getCityStateMap";
+      case NativeMethod.HandleCallBack:
+        return "handleCallBack";
 
       default:
         print("Invalid choice");
@@ -83,9 +71,6 @@ class NativePlatform {
 
   static String _getIOSMethodName(NativeMethod nativeMethod) {
     switch (nativeMethod) {
-      case NativeMethod.OAuthToken:
-        return "getOAuthToken";
-
       case NativeMethod.BaseUrl:
         return "getBaseUrl";
 
@@ -98,20 +83,8 @@ class NativePlatform {
       case NativeMethod.LogException:
         return "logException";
 
-      case NativeMethod.HandlePinLock:
-        return "handlePinLock";
-
-      case NativeMethod.PopToNative:
-        return "popToNative";
-
-      case NativeMethod.IsValidPincode:
-        return "IsValidPincode";
-
-      case NativeMethod.GetSupportedCities:
-        return "GetSupportedCities";
-
-      case NativeMethod.GetCityStateMap:
-        return "GetCityStateMap";
+      case NativeMethod.HandleCallBack:
+        return "handleCallBack";
     }
 
     return null;
@@ -119,14 +92,9 @@ class NativePlatform {
 }
 
 enum NativeMethod {
-  OAuthToken,
   BaseUrl,
   RequestHeaders,
   LogEvent,
   LogException,
-  HandlePinLock,
-  PopToNative,
-  IsValidPincode,
-  GetSupportedCities,
-  GetCityStateMap
+  HandleCallBack
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:doctor_bima/components/custom_text_field.dart';
 import 'package:doctor_bima/di/di_initializer.dart';
 import 'package:doctor_bima/models/doctors_list_model.dart';
