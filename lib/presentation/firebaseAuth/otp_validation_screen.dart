@@ -153,7 +153,6 @@ class _OTPValidationScreenState extends State<OTPValidationScreen> {
                               }
                             });
                           } catch (e) {
-                            print("exceptionnnnnnnnnn: $e");
                             FocusScope.of(context).unfocus();
                             _scaffoldkey.currentState.showSnackBar(
                                 SnackBar(content: Text('invalid OTP')));
