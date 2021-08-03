@@ -24,7 +24,7 @@ class AppFontSize {
 class AppFont {
   static String sfuiText = 'SFUIText';
   static String roboto = 'Roboto';
-  static const String  circularStd='CircularStd';
+  static const String circularStd = 'CircularStd';
 }
 
 class AppFontWeight {
@@ -33,6 +33,6 @@ class AppFontWeight {
   static const fontWeightBold500W = FontWeight.w500;
   static const fontWeightBold600W = FontWeight.w600;
   static const fontWeightBold700W = FontWeight.w700;
-  static const medium=FontWeight.w500;
-  static const semiBold=FontWeight.w600;
+  static const medium = FontWeight.w500;
+  static const semiBold = FontWeight.w600;
 }

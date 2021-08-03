@@ -39,5 +39,5 @@ class DI {
 }
 
 class DIKey {
-  // DI Keys go here
+  // DI Keys goes here
 }

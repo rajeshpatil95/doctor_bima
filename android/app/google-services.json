@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "573578952321",
+    "project_id": "doctorbima-42669",
+    "storage_bucket": "doctorbima-42669.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573578952321:android:0d6a6457a32720fb741780",
+        "android_client_info": {
+          "package_name": "com.example.doctor_bima.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573578952321-8h6unlo3kru3g1fj1n4sn62l2p4tl8ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF0XIrSy8x1jFCC4zKBEzQWpXy-VD_W4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573578952321-8h6unlo3kru3g1fj1n4sn62l2p4tl8ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,11 +1,25 @@
+import 'package:doctor_bima/bloc/login/login_bloc.dart';
 import 'package:doctor_bima/models/doctors_list_model.dart';
-import 'package:doctor_bima/presentation/doctor_details_screen.dart';
+import 'package:doctor_bima/presentation/dashboard/doctor_details_screen.dart';
+import 'package:doctor_bima/presentation/firebaseAuth/login_screen.dart';
+import 'package:doctor_bima/presentation/firebaseAuth/otp_validation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doctor_bima/bloc/bimaDoctors/bima_doctors_bloc.dart';
 import 'package:doctor_bima/di/di_initializer.dart';
-import 'package:doctor_bima/presentation/home_screen.dart';
+import 'package:doctor_bima/presentation/dashboard/home_screen.dart';
 import 'package:doctor_bima/webservice/bimaDoctors/bima_doctors_repository.dart';
+
+navigateToLoginScreen() {
+  return BlocProvider<LoginBloc>(
+    create: (context) => LoginBloc(),
+    child: LoginScreen(),
+  );
+}
+
+navigateToOtpValidationScreen() {
+  return OTPValidationScreen();
+}
 
 navigateToHomeScreen() {
   return BlocProvider<BimaDoctorsBloc>(

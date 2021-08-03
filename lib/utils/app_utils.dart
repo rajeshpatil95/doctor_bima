@@ -1,7 +1,6 @@
 import 'package:doctor_bima/native/platform_utils.dart';
 import 'package:package_info/package_info.dart';
 
-/// Created by Ajesh Nag on 02/11/20.
 enum Environment { dev, prod }
 
 /// WARNING: For Android only.

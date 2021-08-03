@@ -7,7 +7,7 @@
 // ignore_for_file:unnecessary_brace_in_string_interps, unnecessary_new
 // ignore_for_file:prefer_single_quotes,comment_references, directives_ordering
 // ignore_for_file:annotate_overrides,prefer_generic_function_type_aliases
-// ignore_for_file:unused_import, file_names
+// ignore_for_file:unused_import, file_names, avoid_escaping_inner_quotes
 
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
@@ -20,29 +20,34 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static _notInlinedMessages(_) => <String, Function> {
-    "addressTitle" : MessageLookupByLibrary.simpleMessage("Add New Delivery Address"),
-    "blockMyMoneyTapCard" : MessageLookupByLibrary.simpleMessage("Block My MoneyTap Card"),
-    "cardDetails" : MessageLookupByLibrary.simpleMessage("Card Details"),
-    "dateFormatter_just_now" : MessageLookupByLibrary.simpleMessage("Just now"),
-    "dateFormatter_today" : MessageLookupByLibrary.simpleMessage("Today"),
-    "dateFormatter_tomorrow" : MessageLookupByLibrary.simpleMessage("Tomorrow"),
-    "dateFormatter_yesterday" : MessageLookupByLibrary.simpleMessage("Yesterday"),
-    "defaultTenure" : MessageLookupByLibrary.simpleMessage("Default tenure"),
-    "flatNote" : MessageLookupByLibrary.simpleMessage("Example: 1703, Building 3, Raheja Optima Society"),
-    "flatPlaceholder" : MessageLookupByLibrary.simpleMessage("House/Flat/Wing/Building"),
-    "genericWebRequestError" : MessageLookupByLibrary.simpleMessage("An error occurred, please try again."),
-    "lostCard" : MessageLookupByLibrary.simpleMessage("If card is lost or stolen"),
-    "month" : MessageLookupByLibrary.simpleMessage("Month"),
-    "months" : MessageLookupByLibrary.simpleMessage("Months"),
-    "monthsEMI" : MessageLookupByLibrary.simpleMessage("Months EMI"),
-    "offlineTransaction" : MessageLookupByLibrary.simpleMessage("Offline Transaction"),
-    "requestNewCard" : MessageLookupByLibrary.simpleMessage("Request New Card"),
-    "streetNote" : MessageLookupByLibrary.simpleMessage("Example: 2nd Cross Lane"),
-    "streetPlaceholder" : MessageLookupByLibrary.simpleMessage("Street Address"),
-    "swipeToActivateCard" : MessageLookupByLibrary.simpleMessage("Swipe to activate your card"),
-    "temporarilyLockedUnlockItAnytime" : MessageLookupByLibrary.simpleMessage("Your card is temporarily locked. You can unlock it anytime you want."),
-    "tenureConfirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
-    "virtualCardDetails" : MessageLookupByLibrary.simpleMessage("Virtual Card Details")
-  };
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "cannotBeEmpty":
+            MessageLookupByLibrary.simpleMessage("Phone cannot be empty."),
+        "contactNumber": MessageLookupByLibrary.simpleMessage("CONTACT NUMBER"),
+        "continueStr": MessageLookupByLibrary.simpleMessage("Continue"),
+        "editProfile": MessageLookupByLibrary.simpleMessage("EDIT PROFILE"),
+        "enterValidPhone":
+            MessageLookupByLibrary.simpleMessage("Enter a valid phone number"),
+        "enterYourMobileNumber":
+            MessageLookupByLibrary.simpleMessage("ENTER YOUR MOBILE NUMBER"),
+        "firstName": MessageLookupByLibrary.simpleMessage("FIRST NAME"),
+        "hangOn": MessageLookupByLibrary.simpleMessage("Hang On...Loading..!!"),
+        "invalidOtp": MessageLookupByLibrary.simpleMessage("invalid OTP"),
+        "lastName": MessageLookupByLibrary.simpleMessage("LAST NAME"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "personalDetails":
+            MessageLookupByLibrary.simpleMessage("PERSONAL DETAILS"),
+        "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "pleaseEnterOtp": MessageLookupByLibrary.simpleMessage(
+            "Please enter the verification code that was sent to"),
+        "pleaseEnterValidPhone": MessageLookupByLibrary.simpleMessage(
+            "Please enter valid phone number."),
+        "saveProfile": MessageLookupByLibrary.simpleMessage("SAVE PROFILE"),
+        "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+            "Something went wrong please try again later."),
+        "tAndC": MessageLookupByLibrary.simpleMessage(
+            "I agree to the Terms Of Use and Privacy Policy"),
+        "weWillSendOtp": MessageLookupByLibrary.simpleMessage(
+            "We will send you an SMS with the verification code to this number")
+      };
 }

@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum preferencesKeys { kDoctorsListData, kIsDoctorListFetched }
+enum preferencesKeys { kUserAuthToken, kDoctorsListData, kIsDoctorListFetched }
 
 /// Key-Value storage that wraps SharedPreferences
 abstract class Preferences {

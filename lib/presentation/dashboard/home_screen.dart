@@ -1,4 +1,5 @@
 import 'package:doctor_bima/bloc/bimaDoctors/bima_doctors_state.dart';
+import 'package:doctor_bima/generated/l10n.dart';
 import 'package:doctor_bima/models/doctors_list_model.dart';
 import 'package:doctor_bima/navigation/routes.dart';
 import 'package:doctor_bima/resources/images/images.dart';
@@ -20,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with RouteAware {
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -106,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     return WillPopScope(
       onWillPop: () => _onBackPressed(context),
       child: Scaffold(
+        key: _scaffoldkey,
         appBar: AppBar(
           centerTitle: false,
           leading: Icon(Icons.menu, color: AppColors.primary),
@@ -128,7 +131,12 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
         ),
         body: BlocConsumer<BimaDoctorsBloc, BimaDoctorsState>(
           listenWhen: (previous, current) => true,
-          listener: (BuildContext context, BimaDoctorsState state) {},
+          listener: (BuildContext context, BimaDoctorsState state) {
+            if (state is GetDoctorsListFailureState) {
+              _scaffoldkey.currentState.showSnackBar(
+                                SnackBar(content: Text(Strings.of(context).somethingWentWrong)));
+            }
+          },
           buildWhen: (previous, current) => true,
           builder: (BuildContext context, BimaDoctorsState state) {
             if (state is GetDoctorsListInitialState ||
@@ -144,16 +152,13 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                   child: Column(
                 children: List.generate(
                     state?.doctorsListModel?.length ?? 0,
-                    (index) => GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            child: bimaDoctorTileWidget(
-                                state.doctorsListModel[index]),
-                          ),
+                    (index) => Container(
+                          child: bimaDoctorTileWidget(
+                              state.doctorsListModel[index]),
                         )),
               ));
             }
-            return null;
+            return Container();
           },
         ),
       ),
