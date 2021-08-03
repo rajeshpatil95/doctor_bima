@@ -109,9 +109,22 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
       onWillPop: () => _onBackPressed(context),
       child: Scaffold(
         key: _scaffoldkey,
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                ),
+                child: Center(child: Text("Welcome to Doctor BIMA")),
+              ),
+            ],
+          ),
+        ),
         appBar: AppBar(
           centerTitle: false,
-          leading: Icon(Icons.menu, color: AppColors.primary),
+          iconTheme: IconThemeData(color: AppColors.primary),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -133,8 +146,8 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
           listenWhen: (previous, current) => true,
           listener: (BuildContext context, BimaDoctorsState state) {
             if (state is GetDoctorsListFailureState) {
-              _scaffoldkey.currentState.showSnackBar(
-                                SnackBar(content: Text(Strings.of(context).somethingWentWrong)));
+              _scaffoldkey.currentState.showSnackBar(SnackBar(
+                  content: Text(Strings.of(context).somethingWentWrong)));
             }
           },
           buildWhen: (previous, current) => true,
