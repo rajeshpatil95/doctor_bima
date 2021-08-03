@@ -1,4 +1,5 @@
 import 'package:doctor_bima/bloc/bimaDoctors/bima_doctors_state.dart';
+import 'package:doctor_bima/generated/l10n.dart';
 import 'package:doctor_bima/models/doctors_list_model.dart';
 import 'package:doctor_bima/navigation/routes.dart';
 import 'package:doctor_bima/resources/images/images.dart';
@@ -133,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
           listener: (BuildContext context, BimaDoctorsState state) {
             if (state is GetDoctorsListFailureState) {
               _scaffoldkey.currentState.showSnackBar(
-                                SnackBar(content: Text("Something went wrong please try again later.")));
+                                SnackBar(content: Text(Strings.of(context).somethingWentWrong)));
             }
           },
           buildWhen: (previous, current) => true,

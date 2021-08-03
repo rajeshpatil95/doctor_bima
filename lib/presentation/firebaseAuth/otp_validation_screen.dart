@@ -1,5 +1,6 @@
 import 'package:doctor_bima/components/custom_button.dart';
 import 'package:doctor_bima/di/di_initializer.dart';
+import 'package:doctor_bima/generated/l10n.dart';
 import 'package:doctor_bima/navigation/routes.dart';
 import 'package:doctor_bima/storage/shared_preferences.dart';
 import 'package:doctor_bima/style/app_colors.dart';
@@ -66,7 +67,7 @@ class _OTPValidationScreenState extends State<OTPValidationScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("ENTER YOUR MOBILE NUMBER",
+        Text(Strings.of(context).enterYourMobileNumber,
             textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
@@ -88,11 +89,6 @@ class _OTPValidationScreenState extends State<OTPValidationScreen> {
             selectedFieldDecoration: pinPutDecoration,
             followingFieldDecoration: pinPutDecoration,
             pinAnimationType: PinAnimationType.fade,
-            // onSubmit: (pin) async {
-            //   setState(() {
-            //     pinText = pin;
-            //   });
-            // },
             onChanged: (pin) {
               setState(() {
                 pinText = pin;
@@ -101,8 +97,7 @@ class _OTPValidationScreenState extends State<OTPValidationScreen> {
           ),
         ),
         AppSpacing.sizeBoxHt10,
-        Text(
-            "Please enter the verification code that was sent to ${widget.phone}",
+        Text("${Strings.of(context).pleaseEnterOtp} ${widget.phone}",
             textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
@@ -155,11 +150,11 @@ class _OTPValidationScreenState extends State<OTPValidationScreen> {
                           } catch (e) {
                             FocusScope.of(context).unfocus();
                             _scaffoldkey.currentState.showSnackBar(
-                                SnackBar(content: Text('invalid OTP')));
+                                SnackBar(content: Text(Strings.of(context).invalidOtp)));
                           }
                         }
                       : null,
-                  text: "Login",
+                  text: Strings.of(context).login,
                 ),
                 AppSpacing.sizeBoxHt10,
                 Row(
@@ -176,7 +171,7 @@ class _OTPValidationScreenState extends State<OTPValidationScreen> {
                         }),
                     Flexible(
                         child: Text(
-                            'I agree to the Terms Of Use and Privacy Policy')),
+                            Strings.of(context).tAndC)),
                   ],
                 )
               ],

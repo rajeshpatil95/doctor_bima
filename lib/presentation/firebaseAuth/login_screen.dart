@@ -2,6 +2,7 @@ import 'package:doctor_bima/bloc/login/login_bloc.dart';
 import 'package:doctor_bima/bloc/login/login_event.dart';
 import 'package:doctor_bima/bloc/login/login_state.dart';
 import 'package:doctor_bima/components/custom_button.dart';
+import 'package:doctor_bima/generated/l10n.dart';
 import 'package:doctor_bima/navigation/routes.dart';
 import 'package:doctor_bima/presentation/firebaseAuth/otp_validation_screen.dart';
 import 'package:doctor_bima/style/app_colors.dart';
@@ -39,9 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
     Pattern pattern = r"";
     RegExp regex = RegExp(pattern);
     if (value == null || value.isEmpty)
-      return 'Phone cannot be empty.';
+      return Strings.of(context).cannotBeEmpty;
     else if (!regex.hasMatch(value))
-      return 'Enter a valid phone number';
+      return Strings.of(context).enterValidPhone;
     else
       return null;
   }
@@ -51,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("ENTER YOUR MOBILE NUMBER",
+        Text(Strings.of(context).enterYourMobileNumber,
             textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 });
               },
               decoration: InputDecoration(
-                hintText: 'Phone Number',
+                hintText: Strings.of(context).phoneNumber,
                 hintStyle: TextStyle(
                     fontSize: AppFontSize.normal, color: AppColors.accent),
                 prefix: CountryListPick(
@@ -106,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   AppSpacing.sizeBoxHt10,
-                  Text("Please enter valid phone number.",
+                  Text(Strings.of(context).pleaseEnterValidPhone,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
             : Container(),
         AppSpacing.sizeBoxHt10,
         Text(
-            "We will send you an SMS with teh verification code to this number",
+            Strings.of(context).weWillSendOtp,
             textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
@@ -139,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (BuildContext context, LoginState state) {
           if (state is AuthCheckFailureState) {
             _scaffoldkey.currentState.showSnackBar(SnackBar(
-                content: Text("Something went wrong please try again later.")));
+                content: Text(Strings.of(context).somethingWentWrong,)));
           }
 
           if (state is UserAuthenticatedState) {
@@ -152,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
               state is AuthCheckLoadingState) {
             return Center(
                 child: Container(
-              child: Text("Hang On...Loading..!!",
+              child: Text(Strings.of(context).hangOn,
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
@@ -189,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         phone: _controller.text)));
                             }
                           : null,
-                      text: "Continue",
+                      text: Strings.of(context).continueStr,
                     ),
                   ],
                 ),

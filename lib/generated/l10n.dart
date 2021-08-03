@@ -10,256 +10,231 @@ import 'intl/messages_all.dart';
 
 // ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
 // ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
-// ignore_for_file: avoid_redundant_argument_values
+// ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
 
 class Strings {
   Strings();
-  
-  static Strings current;
-  
-  static const AppLocalizationDelegate delegate =
-    AppLocalizationDelegate();
+
+  static Strings _current;
+
+  static Strings get current {
+    assert(_current != null,
+        'No instance of Strings was loaded. Try to initialize the Strings delegate before accessing Strings.current.');
+    return _current;
+  }
+
+  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<Strings> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name); 
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      Strings.current = Strings();
-      
-      return Strings.current;
+      final instance = Strings();
+      Strings._current = instance;
+
+      return instance;
     });
-  } 
+  }
 
   static Strings of(BuildContext context) {
+    final instance = Strings.maybeOf(context);
+    assert(instance != null,
+        'No instance of Strings present in the widget tree. Did you add Strings.delegate in localizationsDelegates?');
+    return instance;
+  }
+
+  static Strings maybeOf(BuildContext context) {
     return Localizations.of<Strings>(context, Strings);
   }
 
-  /// `An error occurred, please try again.`
-  String get genericWebRequestError {
+  /// `SAVE PROFILE`
+  String get saveProfile {
     return Intl.message(
-      'An error occurred, please try again.',
-      name: 'genericWebRequestError',
+      'SAVE PROFILE',
+      name: 'saveProfile',
       desc: '',
       args: [],
     );
   }
 
-  /// `Add New Delivery Address`
-  String get addressTitle {
+  /// `EDIT PROFILE`
+  String get editProfile {
     return Intl.message(
-      'Add New Delivery Address',
-      name: 'addressTitle',
+      'EDIT PROFILE',
+      name: 'editProfile',
       desc: '',
       args: [],
     );
   }
 
-  /// `House/Flat/Wing/Building`
-  String get flatPlaceholder {
+  /// `PERSONAL DETAILS`
+  String get personalDetails {
     return Intl.message(
-      'House/Flat/Wing/Building',
-      name: 'flatPlaceholder',
+      'PERSONAL DETAILS',
+      name: 'personalDetails',
       desc: '',
       args: [],
     );
   }
 
-  /// `Example: 1703, Building 3, Raheja Optima Society`
-  String get flatNote {
+  /// `FIRST NAME`
+  String get firstName {
     return Intl.message(
-      'Example: 1703, Building 3, Raheja Optima Society',
-      name: 'flatNote',
+      'FIRST NAME',
+      name: 'firstName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Street Address`
-  String get streetPlaceholder {
+  /// `LAST NAME`
+  String get lastName {
     return Intl.message(
-      'Street Address',
-      name: 'streetPlaceholder',
+      'LAST NAME',
+      name: 'lastName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Example: 2nd Cross Lane`
-  String get streetNote {
+  /// `CONTACT NUMBER`
+  String get contactNumber {
     return Intl.message(
-      'Example: 2nd Cross Lane',
-      name: 'streetNote',
+      'CONTACT NUMBER',
+      name: 'contactNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `If card is lost or stolen`
-  String get lostCard {
+  /// `Something went wrong please try again later.`
+  String get somethingWentWrong {
     return Intl.message(
-      'If card is lost or stolen',
-      name: 'lostCard',
+      'Something went wrong please try again later.',
+      name: 'somethingWentWrong',
       desc: '',
       args: [],
     );
   }
 
-  /// `Block My MoneyTap Card`
-  String get blockMyMoneyTapCard {
+  /// `Phone cannot be empty.`
+  String get cannotBeEmpty {
     return Intl.message(
-      'Block My MoneyTap Card',
-      name: 'blockMyMoneyTapCard',
+      'Phone cannot be empty.',
+      name: 'cannotBeEmpty',
       desc: '',
       args: [],
     );
   }
 
-  /// `Default tenure`
-  String get defaultTenure {
+  /// `Enter a valid phone number`
+  String get enterValidPhone {
     return Intl.message(
-      'Default tenure',
-      name: 'defaultTenure',
+      'Enter a valid phone number',
+      name: 'enterValidPhone',
       desc: '',
       args: [],
     );
   }
 
-  /// `Just now`
-  String get dateFormatter_just_now {
+  /// `ENTER YOUR MOBILE NUMBER`
+  String get enterYourMobileNumber {
     return Intl.message(
-      'Just now',
-      name: 'dateFormatter_just_now',
+      'ENTER YOUR MOBILE NUMBER',
+      name: 'enterYourMobileNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Today`
-  String get dateFormatter_today {
+  /// `Phone Number`
+  String get phoneNumber {
     return Intl.message(
-      'Today',
-      name: 'dateFormatter_today',
+      'Phone Number',
+      name: 'phoneNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Yesterday`
-  String get dateFormatter_yesterday {
+  /// `Please enter valid phone number.`
+  String get pleaseEnterValidPhone {
     return Intl.message(
-      'Yesterday',
-      name: 'dateFormatter_yesterday',
+      'Please enter valid phone number.',
+      name: 'pleaseEnterValidPhone',
       desc: '',
       args: [],
     );
   }
 
-  /// `Tomorrow`
-  String get dateFormatter_tomorrow {
+  /// `We will send you an SMS with the verification code to this number`
+  String get weWillSendOtp {
     return Intl.message(
-      'Tomorrow',
-      name: 'dateFormatter_tomorrow',
+      'We will send you an SMS with the verification code to this number',
+      name: 'weWillSendOtp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Months EMI`
-  String get monthsEMI {
+  /// `Hang On...Loading..!!`
+  String get hangOn {
     return Intl.message(
-      'Months EMI',
-      name: 'monthsEMI',
+      'Hang On...Loading..!!',
+      name: 'hangOn',
       desc: '',
       args: [],
     );
   }
 
-  /// `Offline Transaction`
-  String get offlineTransaction {
+  /// `Continue`
+  String get continueStr {
     return Intl.message(
-      'Offline Transaction',
-      name: 'offlineTransaction',
+      'Continue',
+      name: 'continueStr',
       desc: '',
       args: [],
     );
   }
 
-  /// `Month`
-  String get month {
+  /// `Please enter the verification code that was sent to`
+  String get pleaseEnterOtp {
     return Intl.message(
-      'Month',
-      name: 'month',
+      'Please enter the verification code that was sent to',
+      name: 'pleaseEnterOtp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Virtual Card Details`
-  String get virtualCardDetails {
+  /// `invalid OTP`
+  String get invalidOtp {
     return Intl.message(
-      'Virtual Card Details',
-      name: 'virtualCardDetails',
+      'invalid OTP',
+      name: 'invalidOtp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Card Details`
-  String get cardDetails {
+  /// `Login`
+  String get login {
     return Intl.message(
-      'Card Details',
-      name: 'cardDetails',
+      'Login',
+      name: 'login',
       desc: '',
       args: [],
     );
   }
 
-  /// `Your card is temporarily locked. You can unlock it anytime you want.`
-  String get temporarilyLockedUnlockItAnytime {
+  /// `I agree to the Terms Of Use and Privacy Policy`
+  String get tAndC {
     return Intl.message(
-      'Your card is temporarily locked. You can unlock it anytime you want.',
-      name: 'temporarilyLockedUnlockItAnytime',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Request New Card`
-  String get requestNewCard {
-    return Intl.message(
-      'Request New Card',
-      name: 'requestNewCard',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Swipe to activate your card`
-  String get swipeToActivateCard {
-    return Intl.message(
-      'Swipe to activate your card',
-      name: 'swipeToActivateCard',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Confirm`
-  String get tenureConfirm {
-    return Intl.message(
-      'Confirm',
-      name: 'tenureConfirm',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Months`
-  String get months {
-    return Intl.message(
-      'Months',
-      name: 'months',
+      'I agree to the Terms Of Use and Privacy Policy',
+      name: 'tAndC',
       desc: '',
       args: [],
     );
@@ -283,11 +258,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<Strings> {
   bool shouldReload(AppLocalizationDelegate old) => false;
 
   bool _isSupported(Locale locale) {
-    if (locale != null) {
-      for (var supportedLocale in supportedLocales) {
-        if (supportedLocale.languageCode == locale.languageCode) {
-          return true;
-        }
+    for (var supportedLocale in supportedLocales) {
+      if (supportedLocale.languageCode == locale.languageCode) {
+        return true;
       }
     }
     return false;

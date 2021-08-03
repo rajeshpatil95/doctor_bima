@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:doctor_bima/components/custom_text_field.dart';
 import 'package:doctor_bima/di/di_initializer.dart';
+import 'package:doctor_bima/generated/l10n.dart';
 import 'package:doctor_bima/models/doctors_list_model.dart';
 import 'package:doctor_bima/storage/shared_preferences.dart';
 import 'package:doctor_bima/style/app_colors.dart';
@@ -58,8 +59,138 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
         preferencesKeys.kDoctorsListData, jsonEncode(doctorDetailsList));
   }
 
+  Widget profileImageWidget() {
+    return Container(
+      width: circleRadius,
+      height: circleRadius,
+      decoration: ShapeDecoration(shape: CircleBorder(), color: Colors.white),
+      child: Padding(
+        padding: EdgeInsets.all(circleBorderWidth),
+        child: DecoratedBox(
+          decoration: ShapeDecoration(
+              shape: CircleBorder(),
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    "${widget.doctorDetailsModel?.profile_pic}",
+                  ))),
+        ),
+      ),
+    );
+  }
+
+  Widget personalDetails(Size size) {
+    return Padding(
+      padding: EdgeInsets.only(top: circleRadius / 2.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(30.0), topLeft: Radius.circular(30.0)),
+        ),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              AppSpacing.sizeBoxHt50,
+              Text("${widget.doctorDetailsModel?.first_name ?? ""}",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: AppFontSize.subtitle,
+                      color: AppColors.primary)),
+              AppSpacing.sizeBoxHt10,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    areFieldsEditable = !areFieldsEditable;
+                  });
+
+                  if (!areFieldsEditable) {
+                    updateDoctorDetailsList();
+                  }
+                },
+                child: Container(
+                  width: 120,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: AppColors.persianGreen,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: areFieldsEditable
+                      ? Center(
+                          child: Text(Strings.of(context).saveProfile,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: AppFontSize.small,
+                                  color: AppColors.white)),
+                        )
+                      : Center(
+                          child: Text(Strings.of(context).editProfile,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: AppFontSize.small,
+                                  color: AppColors.white)),
+                        ),
+                ),
+              ),
+              AppSpacing.sizeBoxHt10,
+              Container(
+                height: size.height * 0.629308,
+                width: double.infinity,
+                color: AppColors.greyGradient,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    AppSpacing.sizeBoxHt10,
+                    Text(Strings.of(context).personalDetails,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: AppFontSize.subtitle,
+                            color: AppColors.black)),
+                    AppSpacing.sizeBoxHt10,
+                    CustomTextField(
+                        onChanged: (value) {
+                          firstNameTextController.text = value;
+                        },
+                        textHint: Strings.of(context).firstName,
+                        isEditable: areFieldsEditable,
+                        textEditingController: firstNameTextController),
+                    CustomTextField(
+                        onChanged: (value) {
+                          lastNameTextController.text = value;
+                        },
+                        textHint: Strings.of(context).lastName,
+                        isEditable: areFieldsEditable,
+                        textEditingController: lastNameTextController),
+                    CustomTextField(
+                        onChanged: (value) {
+                          contactNoTextController.text = value;
+                        },
+                        textHint: Strings.of(context).contactNumber,
+                        isEditable: areFieldsEditable,
+                        textEditingController: contactNoTextController),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: AppColors.primary,
         appBar: AppBar(
@@ -73,145 +204,13 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
               }),
           backgroundColor: AppColors.primary,
         ),
-        body: SingleChildScrollView(
-            child: Column(
+        body: Column(
           children: [
             Stack(
               alignment: Alignment.topCenter,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: circleRadius / 2.0),
-                  child: Container(
-                    // height: 400.0,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(30.0),
-                          topLeft: Radius.circular(30.0)),
-                    ),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          AppSpacing.sizeBoxHt50,
-                          Text("${widget.doctorDetailsModel?.first_name ?? ""}",
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: AppFontSize.subtitle,
-                                  color: AppColors.primary)),
-                          AppSpacing.sizeBoxHt10,
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                areFieldsEditable = !areFieldsEditable;
-                              });
-
-                              if (!areFieldsEditable) {
-                                updateDoctorDetailsList();
-                              }
-                            },
-                            child: Container(
-                              width: 120,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  color: AppColors.persianGreen,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: areFieldsEditable
-                                  ? Center(
-                                      child: Text("SAVE PROFILE",
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: AppFontSize.small,
-                                              color: AppColors.white)),
-                                    )
-                                  : Center(
-                                      child: Text("EDIT PROFILE",
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: AppFontSize.small,
-                                              color: AppColors.white)),
-                                    ),
-                            ),
-                          ),
-                          AppSpacing.sizeBoxHt10,
-                          Container(
-                            // height: 200,
-                            width: double.infinity,
-                            color: AppColors.greyGradient,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                AppSpacing.sizeBoxHt10,
-                                Text("PERSONAL DETAILS",
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: AppFontSize.subtitle,
-                                        color: AppColors.black)),
-                                AppSpacing.sizeBoxHt10,
-                                CustomTextField(
-                                    onChanged: (value) {
-                                      firstNameTextController.text = value;
-                                    },
-                                    textHint: "FIRST NAME",
-                                    isEditable: areFieldsEditable,
-                                    textEditingController:
-                                        firstNameTextController),
-                                CustomTextField(
-                                    onChanged: (value) {
-                                      lastNameTextController.text = value;
-                                    },
-                                    textHint: "LAST NAME",
-                                    isEditable: areFieldsEditable,
-                                    textEditingController:
-                                        lastNameTextController),
-                                CustomTextField(
-                                    onChanged: (value) {
-                                      contactNoTextController.text = value;
-                                    },
-                                    textHint: "CONTACT NUMBER",
-                                    isEditable: areFieldsEditable,
-                                    textEditingController:
-                                        contactNoTextController),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: circleRadius,
-                  height: circleRadius,
-                  decoration: ShapeDecoration(
-                      shape: CircleBorder(), color: Colors.white),
-                  child: Padding(
-                    padding: EdgeInsets.all(circleBorderWidth),
-                    child: DecoratedBox(
-                      decoration: ShapeDecoration(
-                          shape: CircleBorder(),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                "${widget.doctorDetailsModel?.profile_pic}",
-                              ))),
-                    ),
-                  ),
-                )
-              ],
+              children: <Widget>[personalDetails(size), profileImageWidget()],
             ),
           ],
-        )));
+        ));
   }
 }
