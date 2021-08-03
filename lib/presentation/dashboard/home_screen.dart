@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                 decoration: BoxDecoration(
                   color: AppColors.primary,
                 ),
-                child: Center(child: Text("Welcome to Doctor BIMA")),
+                child: Center(child: Text("Welcome to DOCTOR BIMA")),
               ),
             ],
           ),
