@@ -1,0 +1,21 @@
+{
+    "saveProfile": "SAVE PROFILE",
+    "editProfile": "EDIT PROFILE",
+    "personalDetails": "PERSONAL DETAILS",
+    "firstName": "FIRST NAME",
+    "lastName": "LAST NAME",
+    "contactNumber": "CONTACT NUMBER",
+    "somethingWentWrong": "Something went wrong please try again later.",
+    "cannotBeEmpty": "Phone cannot be empty.",
+    "enterValidPhone": "Enter a valid phone number",
+    "enterYourMobileNumber": "ENTER YOUR MOBILE NUMBER",
+    "phoneNumber": "Phone Number",
+    "pleaseEnterValidPhone": "Please enter valid phone number.",
+    "weWillSendOtp": "We will send you an SMS with the verification code to this number",
+    "hangOn": "Hang On...Loading..!!",
+    "continueStr": "Continue",
+    "pleaseEnterOtp": "Please enter the verification code that was sent to",
+    "invalidOtp": "invalid OTP",
+    "login": "Login",
+    "tAndC": "I agree to the Terms Of Use and Privacy Policy"
+}
