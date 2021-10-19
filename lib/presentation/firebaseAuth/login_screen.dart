@@ -29,6 +29,16 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
 
+    _controller.addListener(() {
+      final text = _controller.text.toLowerCase();
+      _controller.value = _controller.value.copyWith(
+        text: text,
+        selection:
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+
     BlocProvider.of<LoginBloc>(context)
         .add(CheckIfUserAuthenticatedEvent(context: context));
   }
@@ -65,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
             margin: EdgeInsets.only(top: 40, right: 10, left: 10),
             child: TextFormField(
               autocorrect: true,
+              controller: _controller,
               keyboardType: TextInputType.phone,
               cursorColor: AppColors.accent,
               style: TextStyle(color: AppColors.accent),
@@ -97,7 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     icon: Icon(Icons.cancel_outlined),
                     color: AppColors.accent,
                     onPressed: () {
-                      _controller.clear();
+                      setState(() {
+                        _controller.clear();
+                      });
                     }),
               ),
             )),
@@ -117,8 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
               )
             : Container(),
         AppSpacing.sizeBoxHt10,
-        Text(
-            Strings.of(context).weWillSendOtp,
+        Text(Strings.of(context).weWillSendOtp,
             textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
@@ -140,7 +152,9 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (BuildContext context, LoginState state) {
           if (state is AuthCheckFailureState) {
             _scaffoldkey.currentState.showSnackBar(SnackBar(
-                content: Text(Strings.of(context).somethingWentWrong,)));
+                content: Text(
+              Strings.of(context).somethingWentWrong,
+            )));
           }
 
           if (state is UserAuthenticatedState) {

@@ -204,13 +204,15 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
               }),
           backgroundColor: AppColors.primary,
         ),
-        body: Column(
-          children: [
-            Stack(
-              alignment: Alignment.topCenter,
-              children: <Widget>[personalDetails(size), profileImageWidget()],
-            ),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: <Widget>[personalDetails(size), profileImageWidget()],
+              ),
+            ],
+          ),
         ));
   }
 }
