@@ -16,11 +16,11 @@ class StateContainer extends StatefulWidget {
 }
 
 class StateContainerState extends State<StateContainer> {
-  bool shouldTxnScreenReload = false;
+  bool areDetailsUpdated = false;
 
-  void appUpdateRoute(bool value) {
+  void appUpdateValue(bool value) {
     setState(() {
-      shouldTxnScreenReload = value;
+      areDetailsUpdated = value;
     });
   }
 
