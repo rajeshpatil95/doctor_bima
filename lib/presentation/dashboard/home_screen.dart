@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:doctor_bima/appStateContainer/app_state_container.dart';
+import 'package:doctor_bima/appStateContainer/app_state_model.dart';
 import 'package:doctor_bima/bloc/bimaDoctors/bima_doctors_state.dart';
 import 'package:doctor_bima/generated/l10n.dart';
 import 'package:doctor_bima/models/doctors_list_model.dart';
@@ -10,11 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doctor_bima/bloc/bimaDoctors/bima_doctors_bloc.dart';
 import 'package:doctor_bima/bloc/bimaDoctors/bima_doctors_event.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen();
+  HomeScreen() : super();
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -22,6 +26,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
+  StateContainerState appStateContainer;
+  AppStateModel appStateModel;
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +50,13 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
   void didChangeDependencies() {
     super.didChangeDependencies();
     routeObserver.subscribe(this, ModalRoute.of(context));
+    appStateContainer = StateContainer.of(context);
+    appStateModel = ScopedModel.of<AppStateModel>(context);
+  }
+
+  @override
+  void didUpdateWidget(HomeScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -109,9 +123,22 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
       onWillPop: () => _onBackPressed(context),
       child: Scaffold(
         key: _scaffoldkey,
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                ),
+                child: Center(child: Text("Welcome to DOCTOR BIMA")),
+              ),
+            ],
+          ),
+        ),
         appBar: AppBar(
           centerTitle: false,
-          leading: Icon(Icons.menu, color: AppColors.primary),
+          iconTheme: IconThemeData(color: AppColors.primary),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -133,12 +160,14 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
           listenWhen: (previous, current) => true,
           listener: (BuildContext context, BimaDoctorsState state) {
             if (state is GetDoctorsListFailureState) {
-              _scaffoldkey.currentState.showSnackBar(
-                                SnackBar(content: Text(Strings.of(context).somethingWentWrong)));
+              _scaffoldkey.currentState.showSnackBar(SnackBar(
+                  content: Text(Strings.of(context).somethingWentWrong)));
             }
           },
           buildWhen: (previous, current) => true,
           builder: (BuildContext context, BimaDoctorsState state) {
+            final StateContainerState appStateContainer =
+                StateContainer.of(context);
             if (state is GetDoctorsListInitialState ||
                 state is GetDoctorsListLoadingState) {
               return Center(
@@ -148,15 +177,26 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                 ),
               );
             } else if (state is GetDoctorsListSuccessState) {
-              return SingleChildScrollView(
-                  child: Column(
-                children: List.generate(
-                    state?.doctorsListModel?.length ?? 0,
-                    (index) => Container(
-                          child: bimaDoctorTileWidget(
-                              state.doctorsListModel[index]),
-                        )),
-              ));
+              return ListView(
+                children: [
+                  Center(
+                      child: Text(
+                          "Inherited Widget: ${appStateContainer.areDetailsUpdated}")),
+                  AppSpacing.sizeBoxHt10,
+                  Center(
+                      child: Text(
+                          "Scoped Model: ${appStateModel.areDetailsUpdated}")),
+                  SingleChildScrollView(
+                      child: Column(
+                    children: List.generate(
+                        state?.doctorsListModel?.length ?? 0,
+                        (index) => Container(
+                              child: bimaDoctorTileWidget(
+                                  state.doctorsListModel[index]),
+                            )),
+                  ))
+                ],
+              );
             }
             return Container();
           },

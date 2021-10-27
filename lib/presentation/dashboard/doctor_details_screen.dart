@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:doctor_bima/appStateContainer/app_state_container.dart';
+import 'package:doctor_bima/appStateContainer/app_state_model.dart';
 import 'package:doctor_bima/components/custom_text_field.dart';
 import 'package:doctor_bima/di/di_initializer.dart';
 import 'package:doctor_bima/generated/l10n.dart';
@@ -8,6 +11,7 @@ import 'package:doctor_bima/style/app_colors.dart';
 import 'package:doctor_bima/style/font.dart';
 import 'package:doctor_bima/style/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class DoctorDetailsScreen extends StatefulWidget {
   final DoctorDetailsModel doctorDetailsModel;
@@ -25,10 +29,13 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
   TextEditingController firstNameTextController;
   TextEditingController lastNameTextController;
   TextEditingController contactNoTextController;
+  StateContainerState appStateContainer;
+  AppStateModel appStateModel;
 
   @override
   void initState() {
     super.initState();
+
     firstNameTextController = TextEditingController();
     lastNameTextController = TextEditingController();
     contactNoTextController = TextEditingController();
@@ -37,6 +44,13 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
     lastNameTextController.text = widget?.doctorDetailsModel?.last_name;
     contactNoTextController.text =
         widget?.doctorDetailsModel?.primary_contact_no;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    appStateContainer = StateContainer.of(context);
+    appStateModel = ScopedModel.of<AppStateModel>(context);
   }
 
   void updateDoctorDetailsList() async {
@@ -57,6 +71,9 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
     });
     await DI.inject<Preferences>().setStringForKey(
         preferencesKeys.kDoctorsListData, jsonEncode(doctorDetailsList));
+
+    appStateContainer.appUpdateValue(true);
+    appStateModel.appUpdateValue(true);
   }
 
   Widget profileImageWidget() {
@@ -191,6 +208,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final StateContainerState appStateContainer = StateContainer.of(context);
     return Scaffold(
         backgroundColor: AppColors.primary,
         appBar: AppBar(
