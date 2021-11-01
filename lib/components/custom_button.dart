@@ -2,6 +2,7 @@ import 'package:doctor_bima/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
+  final Key key;
   final double height;
   final double width;
   final bool ignoreCondition;
@@ -17,6 +18,7 @@ class CustomButton extends StatelessWidget {
   CustomButton(
       {this.textStyle = const TextStyle(
           color: AppColors.white, fontWeight: FontWeight.w700, fontSize: 17.0),
+      this.key,    
       this.text = '',
       this.width = double.infinity,
       this.height = 50,

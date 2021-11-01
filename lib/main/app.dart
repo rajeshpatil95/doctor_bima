@@ -1,3 +1,4 @@
+import 'package:doctor_bima/appStateContainer/app_state_model.dart';
 import 'package:doctor_bima/presentation/dashboard/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:doctor_bima/navigation/route_initializer.dart';
 import 'package:doctor_bima/navigation/routes.dart';
 import 'package:doctor_bima/style/app_colors.dart';
 import 'package:doctor_bima/style/font.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class LaunchApp extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class LaunchApp extends StatefulWidget {
 
 class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
   GlobalKey<NavigatorState> _navigatorKey = GlobalKey();
+  AppStateModel appStateModel;
 
   @override
   void initState() {
@@ -33,6 +36,12 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    appStateModel = AppStateModel();
+  }
+
   List<NavigatorObserver> get getNavigatorObservers =>
       <NavigatorObserver>[routeObserver];
 
@@ -45,34 +54,39 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
   }
 
   getAppWidget() {
-    return MaterialApp(
-        navigatorKey: _navigatorKey,
-        theme: ThemeData(
-            accentColor: AppColors.accent,
-            primaryColor: AppColors.primary,
-            fontFamily: AppFont.roboto),
-        navigatorObservers: getNavigatorObservers,
-        localizationsDelegates: [
-          Strings.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
-        ],
-        supportedLocales: Strings.delegate.supportedLocales,
-        routes: {
-          Routes.homeScreen: (context) => navigateToHomeScreen(),
-          Routes.loginScreen: (context) => navigateToLoginScreen(),
-          Routes.otpValidationScreen: (context) =>
-              navigateToOtpValidationScreen(),
-        },
-        onGenerateRoute: (settings) {
-          if (settings.name == Routes.homeScreen) {
-            return navigateToHomeScreen();
-          } else if (settings.name == Routes.doctorDetailsScreen) {
-            return navigateToDoctorDetailsScreen(settings);
-          }
-          return null;
-        },
-        initialRoute: Routes.loginScreen);
+    return ScopedModel(
+        model: appStateModel,
+        child: ScopedModelDescendant<AppStateModel>(
+            builder: (context, widget, model) {
+          return MaterialApp(
+              navigatorKey: _navigatorKey,
+              theme: ThemeData(
+                  accentColor: AppColors.accent,
+                  primaryColor: AppColors.primary,
+                  fontFamily: AppFont.roboto),
+              navigatorObservers: getNavigatorObservers,
+              localizationsDelegates: [
+                Strings.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate
+              ],
+              supportedLocales: Strings.delegate.supportedLocales,
+              routes: {
+                Routes.homeScreen: (context) => navigateToHomeScreen(),
+                Routes.loginScreen: (context) => navigateToLoginScreen(),
+                Routes.otpValidationScreen: (context) =>
+                    navigateToOtpValidationScreen(),
+              },
+              onGenerateRoute: (settings) {
+                if (settings.name == Routes.homeScreen) {
+                  return navigateToHomeScreen();
+                } else if (settings.name == Routes.doctorDetailsScreen) {
+                  return navigateToDoctorDetailsScreen(settings);
+                }
+                return null;
+              },
+              initialRoute: Routes.loginScreen);
+        }));
   }
 }
