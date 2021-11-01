@@ -63,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(Strings.of(context).enterYourMobileNumber,
+            key: const Key("login_screen_text_enter_your_mobile_number"),
             textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
@@ -74,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Container(
             margin: EdgeInsets.only(top: 40, right: 10, left: 10),
             child: TextFormField(
+              key: const Key("login_screen_textfield_phone_number"),
               autocorrect: true,
               controller: _controller,
               keyboardType: TextInputType.phone,
@@ -190,6 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     enterMobileNumberWidget(),
                     AppSpacing.sizeBoxHt300,
                     CustomButton(
+                      key: const Key("login_screen_button_continue"),
                       buttonColor: AppColors.persianGreen,
                       borderRadius: 4.0,
                       onPressed: _controller.text.isNotEmpty
