@@ -1,0 +1,8 @@
+{"protocolVersion":"0.1.1","runnerVersion":"1.17.10","pid":19986,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"/home/rajeshpatil/flutter_projects/doctor_bima/integration_test/main_default_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading /home/rajeshpatil/flutter_projects/doctor_bima/integration_test/main_default_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2}
+{"count":1,"time":10,"type":"allSuites"}
+Running Gradle task 'assembleDebug'...                             50.5s
+{"testID":1,"error":"Exception: Gradle build failed to produce an .apk file. It's likely that this file was generated under /home/rajeshpatil/flutter_projects/doctor_bima/build, but the tool couldn't find it.","stackTrace":"package:flutter_tools/src/base/common.dart 10:3                    throwToolExit\npackage:flutter_tools/src/android/gradle.dart 891:3                _exitWithExpectedFileNotFound\npackage:flutter_tools/src/android/gradle.dart 443:7                AndroidGradleBuilder.buildGradleApp\n===== asynchronous gap ===========================\npackage:flutter_tools/src/android/gradle.dart 178:5                AndroidGradleBuilder.buildApk\n===== asynchronous gap ===========================\npackage:flutter_tools/src/android/android_device.dart 571:7        AndroidDevice.startApp\n===== asynchronous gap ===========================\npackage:flutter_tools/src/test/integration_test_device.dart 53:39  IntegrationTestTestDevice.start\n","isFailure":false,"type":"error","time":50687}
+{"testID":1,"result":"error","skipped":false,"hidden":false,"type":"testDone","time":50693}
+{"success":false,"type":"done","time":50699}
