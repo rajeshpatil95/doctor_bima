@@ -120,6 +120,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                       color: AppColors.primary)),
               AppSpacing.sizeBoxHt10,
               GestureDetector(
+                key: const Key("doctor_details_screen_button_edit_save"),
                 onTap: () {
                   setState(() {
                     areFieldsEditable = !areFieldsEditable;
@@ -175,6 +176,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                             color: AppColors.black)),
                     AppSpacing.sizeBoxHt10,
                     CustomTextField(
+                        key: const Key(
+                            "doctor_details_screen_textfield_firstname"),
                         onChanged: (value) {
                           firstNameTextController.text = value;
                         },
@@ -182,6 +185,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                         isEditable: areFieldsEditable,
                         textEditingController: firstNameTextController),
                     CustomTextField(
+                        key: const Key(
+                            "doctor_details_screen_textfield_lastname"),
                         onChanged: (value) {
                           lastNameTextController.text = value;
                         },
@@ -189,6 +194,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                         isEditable: areFieldsEditable,
                         textEditingController: lastNameTextController),
                     CustomTextField(
+                        key: const Key(
+                            "doctor_details_screen_textfield_contact_no"),
                         onChanged: (value) {
                           contactNoTextController.text = value;
                         },
@@ -215,6 +222,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
           centerTitle: false,
           elevation: 0,
           leading: IconButton(
+              key: const Key("doctor_details_screen_button_arrow_back"),
               icon: Icon(Icons.arrow_back),
               color: AppColors.accent,
               onPressed: () {
