@@ -4,20 +4,109 @@ import 'package:integration_test/integration_test.dart';
 import 'package:doctor_bima/main/main_dev.dart' as launchApp;
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  group("DoctorBimaApp Test", () {
+    IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets("Testing login_screen E2E", (WidgetTester tester) async {
-    launchApp.main();
-    await tester.pumpAndSettle(const Duration(seconds: 4));
+    testWidgets("Testing DoctorBimaApp E2E", (WidgetTester tester) async {
+      launchApp.main();
+      await tester.pumpAndSettle(const Duration(seconds: 2));
 
-    var phoneInput =
-        find.byKey(const Key("login_screen_textfield_phone_number"));
-    await tester.tap(phoneInput);
-    await tester.enterText(phoneInput, "7020398113");
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+      //login_screen
+      final phoneInput =
+          find.byKey(const Key("login_screen_textfield_phone_number"));
+      await tester.tap(phoneInput);
+      await tester.enterText(phoneInput, "7020398113");
+      await tester.pumpAndSettle(const Duration(seconds: 2));
 
-    var continueBttn = find.byKey(const Key("login_screen_button_continue"));
-    await tester.tap(continueBttn);
-    await tester.pumpAndSettle(const Duration(seconds: 4));
+      final continueBttn =
+          find.byKey(const Key("login_screen_button_continue"));
+      await tester.tap(continueBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      //otp_validation_screen
+      final pinInput = find.byKey(const Key('otp_validation_screen_pinInput'));
+      await tester.tap(pinInput);
+      await tester.enterText(pinInput, "123456");
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      final checkboxBttn =
+          find.byKey(const Key("otp_validation_screen_checkbox_t&c"));
+      expect(
+          tester.getSemantics(checkboxBttn),
+          matchesSemantics(
+              hasTapAction: true,
+              hasCheckedState: true,
+              isChecked: false,
+              hasEnabledState: true,
+              isEnabled: true,
+              isFocusable: true));
+      await tester.tap(checkboxBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      expect(
+          tester.getSemantics(checkboxBttn),
+          matchesSemantics(
+              hasTapAction: true,
+              hasCheckedState: true,
+              isChecked: true,
+              hasEnabledState: true,
+              isEnabled: true,
+              isFocusable: true));
+
+      final loginBttn =
+          find.byKey(const Key("otp_validation_screen_button_login"));
+      await tester.tap(loginBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 4));
+
+      //home_screen
+      final detailTile = find.byType(ListTile).first;
+      await tester.dragUntilVisible(
+          find.text("Madhuri"),
+          find.byType(ListTile).first, // widget you want to scroll
+          const Offset(-250, 0),
+          duration: Duration(seconds: 10) // delta to move
+          );
+      await tester.tap(detailTile);
+      await tester.pumpAndSettle(const Duration(seconds: 10));
+
+      //doctor_details_screen
+      final saveEditBttn =
+          find.byKey(const Key("doctor_details_screen_button_edit_save"));
+      await tester.tap(saveEditBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      final firstNameInput =
+          find.byKey(const Key("doctor_details_screen_textfield_firstname"));
+      await tester.tap(firstNameInput);
+      await tester.enterText(firstNameInput, "Rajesh");
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      final lastNameInput =
+          find.byKey(const Key("doctor_details_screen_textfield_lastname"));
+      await tester.tap(lastNameInput);
+      await tester.enterText(lastNameInput, "Patil");
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      final contactNoInput =
+          find.byKey(const Key("doctor_details_screen_textfield_contact_no"));
+      await tester.tap(contactNoInput);
+      await tester.enterText(contactNoInput, "7020398113");
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      await tester.tap(saveEditBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      final arrowBackBttn =
+          find.byKey(const Key("doctor_details_screen_button_arrow_back"));
+      await tester.tap(arrowBackBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      await tester.dragUntilVisible(
+          find.text("Amir"),
+          find.byType(ListTile).first,
+          const Offset(0, 250),
+          duration: Duration(seconds: 10)
+          );
+      await tester.pumpAndSettle(const Duration(seconds: 10));    
+    });
   });
 }

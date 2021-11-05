@@ -7,12 +7,49 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:573578952321:android:7d96bd8eaaea29a9741780",
+        "android_client_info": {
+          "package_name": "com.example.doctor_bima.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573578952321-8h6unlo3kru3g1fj1n4sn62l2p4tl8ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF0XIrSy8x1jFCC4zKBEzQWpXy-VD_W4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573578952321-8h6unlo3kru3g1fj1n4sn62l2p4tl8ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:573578952321:android:0d6a6457a32720fb741780",
         "android_client_info": {
           "package_name": "com.example.doctor_bima.dev"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "573578952321-c6jfao264jff9i0ndoj0dvhi6oonhchv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.doctor_bima.dev",
+            "certificate_hash": "c72869bf623dba2cacd5464a39b90335adabfb15"
+          }
+        },
         {
           "client_id": "573578952321-8h6unlo3kru3g1fj1n4sn62l2p4tl8ts.apps.googleusercontent.com",
           "client_type": 3

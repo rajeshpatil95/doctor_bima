@@ -71,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
 
   Widget bimaDoctorTileWidget(DoctorDetailsModel doctorsDetailsModel) {
     return ListTile(
+       key: const Key("home_screen_tile"),
       onTap: () {
         Navigator.pushNamed(context, Routes.doctorDetailsScreen,
             arguments: doctorsDetailsModel);
