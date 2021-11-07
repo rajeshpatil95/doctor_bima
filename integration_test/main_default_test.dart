@@ -1,3 +1,6 @@
+import 'package:doctor_bima/presentation/dashboard/doctor_details_screen.dart';
+import 'package:doctor_bima/presentation/dashboard/home_screen.dart';
+import 'package:doctor_bima/presentation/firebaseAuth/otp_validation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -22,6 +25,7 @@ void main() {
           find.byKey(const Key("login_screen_button_continue"));
       await tester.tap(continueBttn);
       await tester.pumpAndSettle(const Duration(seconds: 2));
+      expect(find.byType(OTPValidationScreen), findsOneWidget);
 
       //otp_validation_screen
       final pinInput = find.byKey(const Key('otp_validation_screen_pinInput'));
@@ -56,6 +60,7 @@ void main() {
           find.byKey(const Key("otp_validation_screen_button_login"));
       await tester.tap(loginBttn);
       await tester.pumpAndSettle(const Duration(seconds: 4));
+      expect(find.byType(HomeScreen), findsOneWidget);
 
       //home_screen
       final detailTile = find.byType(ListTile).first;
@@ -67,6 +72,7 @@ void main() {
           );
       await tester.tap(detailTile);
       await tester.pumpAndSettle(const Duration(seconds: 10));
+      expect(find.byType(DoctorDetailsScreen), findsOneWidget);
 
       //doctor_details_screen
       final saveEditBttn =
@@ -106,7 +112,8 @@ void main() {
           const Offset(0, 250),
           duration: Duration(seconds: 10)
           );
-      await tester.pumpAndSettle(const Duration(seconds: 10));    
+      await tester.pumpAndSettle(const Duration(seconds: 10));  
+      expect(find.byType(HomeScreen), findsOneWidget); 
     });
   });
 }
