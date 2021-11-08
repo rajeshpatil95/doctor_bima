@@ -203,6 +203,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
           },
         ),
         floatingActionButton: FloatingActionButton(
+          key: const Key("home_screen_button_file_upload"),
           onPressed: () {
             Navigator.pushNamed(context, Routes.filePickerScreen);
           },

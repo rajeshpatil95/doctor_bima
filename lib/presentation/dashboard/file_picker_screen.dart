@@ -216,6 +216,7 @@ class _FilePickerScreenState extends State<FilePickerScreen> {
                     child: Column(
                       children: <Widget>[
                         ElevatedButton(
+                          key: const Key("file_picker_screen_button_pick_file"),
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   AppColors.primary)),
