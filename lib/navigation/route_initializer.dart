@@ -1,6 +1,7 @@
 import 'package:doctor_bima/bloc/login/login_bloc.dart';
 import 'package:doctor_bima/models/doctors_list_model.dart';
 import 'package:doctor_bima/presentation/dashboard/doctor_details_screen.dart';
+import 'package:doctor_bima/presentation/dashboard/file_picker_screen.dart';
 import 'package:doctor_bima/presentation/firebaseAuth/login_screen.dart';
 import 'package:doctor_bima/presentation/firebaseAuth/otp_validation_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,12 @@ navigateToHomeScreen() {
     create: (context) => BimaDoctorsBloc(DI.inject<BimaDoctorsRepository>()),
     child: HomeScreen(),
   );
+}
+
+navigateToFilePickerScreen() {
+  return MaterialPageRoute(builder: (context) {
+    return FilePickerScreen();
+  });
 }
 
 navigateToDoctorDetailsScreen(RouteSettings routeSettings) {
