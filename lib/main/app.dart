@@ -81,6 +81,8 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
               onGenerateRoute: (settings) {
                 if (settings.name == Routes.homeScreen) {
                   return navigateToHomeScreen();
+                } else if (settings.name == Routes.filePickerScreen) {
+                  return navigateToFilePickerScreen();
                 } else if (settings.name == Routes.doctorDetailsScreen) {
                   return navigateToDoctorDetailsScreen(settings);
                 }
