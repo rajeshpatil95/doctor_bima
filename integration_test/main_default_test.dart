@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:doctor_bima/main/main_dev.dart' as launchApp;
-import 'package:integration_test/integration_test_driver.dart';
-import 'dart:io';
-import 'package:path/path.dart';
 
 void main() async {
   group("DoctorBimaApp Test", () {
