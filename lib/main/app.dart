@@ -83,6 +83,10 @@ class LaunchAppState extends State<LaunchApp> with WidgetsBindingObserver {
                   return navigateToHomeScreen();
                 } else if (settings.name == Routes.filePickerScreen) {
                   return navigateToFilePickerScreen();
+                } else if (settings.name == Routes.dragDropScreen) {
+                  return navigateToDragDropScreen();
+                } else if (settings.name == Routes.longPressScreen) {
+                  return navigateToLongPressScreen();
                 } else if (settings.name == Routes.doctorDetailsScreen) {
                   return navigateToDoctorDetailsScreen(settings);
                 }

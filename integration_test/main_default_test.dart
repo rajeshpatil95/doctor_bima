@@ -7,6 +7,23 @@ import 'package:integration_test/integration_test.dart';
 import 'package:doctor_bima/main/main_dev.dart' as launchApp;
 
 void main() async {
+  // convenience flutter testing gives us an ability to set stuff up before and after cleanup
+  setUpAll(() {
+    // This is called once before ALL test
+  });
+
+  setUp(() {
+    //This is called once before EVERY test
+  });
+
+  tearDownAll(() {
+    //This is called once after ALL test
+  });
+
+  tearDown(() {
+    //This si called once after EVERY test
+  });
+
   group("DoctorBimaApp Test", () {
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
     testWidgets("Testing DoctorBimaApp E2E", (WidgetTester tester) async {
@@ -132,6 +149,6 @@ void main() async {
           duration: Duration(seconds: 10));
       await tester.pumpAndSettle(const Duration(seconds: 10));
       expect(find.byType(HomeScreen), findsOneWidget);
-    });
+    }, skip: false);
   });
 }
