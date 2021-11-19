@@ -123,94 +123,120 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     return WillPopScope(
       onWillPop: () => _onBackPressed(context),
       child: Scaffold(
-        key: _scaffoldkey,
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
+          key: _scaffoldkey,
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: AppColors.primary,
+                  ),
+                  child: Center(child: Text("Welcome to DOCTOR BIMA")),
                 ),
-                child: Center(child: Text("Welcome to DOCTOR BIMA")),
+              ],
+            ),
+          ),
+          appBar: AppBar(
+            centerTitle: false,
+            iconTheme: IconThemeData(color: AppColors.primary),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(
+                  ImageAsset.launchImage,
+                  fit: BoxFit.contain,
+                  height: 40,
+                ),
+                Image.asset(
+                  ImageAsset.icLauncher,
+                  fit: BoxFit.contain,
+                  height: 40,
+                ),
+              ],
+            ),
+            backgroundColor: AppColors.white,
+          ),
+          body: BlocConsumer<BimaDoctorsBloc, BimaDoctorsState>(
+            listenWhen: (previous, current) => true,
+            listener: (BuildContext context, BimaDoctorsState state) {
+              if (state is GetDoctorsListFailureState) {
+                _scaffoldkey.currentState.showSnackBar(SnackBar(
+                    content: Text(Strings.of(context).somethingWentWrong)));
+              }
+            },
+            buildWhen: (previous, current) => true,
+            builder: (BuildContext context, BimaDoctorsState state) {
+              final StateContainerState appStateContainer =
+                  StateContainer.of(context);
+              if (state is GetDoctorsListInitialState ||
+                  state is GetDoctorsListLoadingState) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(AppColors.primary),
+                  ),
+                );
+              } else if (state is GetDoctorsListSuccessState) {
+                return ListView(
+                  children: [
+                    Center(
+                        child: Text(
+                            "Inherited Widget: ${appStateContainer.areDetailsUpdated}")),
+                    AppSpacing.sizeBoxHt10,
+                    Center(
+                        child: Text(
+                            "Scoped Model: ${appStateModel.areDetailsUpdated}")),
+                    SingleChildScrollView(
+                        child: Column(
+                      children: List.generate(
+                          state?.doctorsListModel?.length ?? 0,
+                          (index) => Container(
+                                child: bimaDoctorTileWidget(
+                                    state.doctorsListModel[index]),
+                              )),
+                    ))
+                  ],
+                );
+              }
+              return Container();
+            },
+          ),
+          floatingActionButton: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                heroTag: "long_press",
+                key: const Key("home_screen_button_long_press"),
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.longPressScreen);
+                },
+                child: Icon(Icons.local_dining),
+                backgroundColor: AppColors.primary,
+              ),
+              AppSpacing.sizeBoxHt10,
+              FloatingActionButton(
+                heroTag: "drag_drop",
+                key: const Key("home_screen_button_drag_drop"),
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.dragDropScreen);
+                },
+                child: Icon(Icons.drag_handle_rounded),
+                backgroundColor: AppColors.primary,
+              ),
+              AppSpacing.sizeBoxHt10,
+              FloatingActionButton(
+                heroTag: "file_upload",
+                key: const Key("home_screen_button_file_upload"),
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.filePickerScreen);
+                },
+                child: Icon(Icons.upload),
+                backgroundColor: AppColors.primary,
               ),
             ],
-          ),
-        ),
-        appBar: AppBar(
-          centerTitle: false,
-          iconTheme: IconThemeData(color: AppColors.primary),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
-                ImageAsset.launchImage,
-                fit: BoxFit.contain,
-                height: 40,
-              ),
-              Image.asset(
-                ImageAsset.icLauncher,
-                fit: BoxFit.contain,
-                height: 40,
-              ),
-            ],
-          ),
-          backgroundColor: AppColors.white,
-        ),
-        body: BlocConsumer<BimaDoctorsBloc, BimaDoctorsState>(
-          listenWhen: (previous, current) => true,
-          listener: (BuildContext context, BimaDoctorsState state) {
-            if (state is GetDoctorsListFailureState) {
-              _scaffoldkey.currentState.showSnackBar(SnackBar(
-                  content: Text(Strings.of(context).somethingWentWrong)));
-            }
-          },
-          buildWhen: (previous, current) => true,
-          builder: (BuildContext context, BimaDoctorsState state) {
-            final StateContainerState appStateContainer =
-                StateContainer.of(context);
-            if (state is GetDoctorsListInitialState ||
-                state is GetDoctorsListLoadingState) {
-              return Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
-                ),
-              );
-            } else if (state is GetDoctorsListSuccessState) {
-              return ListView(
-                children: [
-                  Center(
-                      child: Text(
-                          "Inherited Widget: ${appStateContainer.areDetailsUpdated}")),
-                  AppSpacing.sizeBoxHt10,
-                  Center(
-                      child: Text(
-                          "Scoped Model: ${appStateModel.areDetailsUpdated}")),
-                  SingleChildScrollView(
-                      child: Column(
-                    children: List.generate(
-                        state?.doctorsListModel?.length ?? 0,
-                        (index) => Container(
-                              child: bimaDoctorTileWidget(
-                                  state.doctorsListModel[index]),
-                            )),
-                  ))
-                ],
-              );
-            }
-            return Container();
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          key: const Key("home_screen_button_file_upload"),
-          onPressed: () {
-            Navigator.pushNamed(context, Routes.filePickerScreen);
-          },
-          child: Icon(Icons.upload),
-          backgroundColor: AppColors.primary,
-        ),
-      ),
+          )),
     );
   }
 }

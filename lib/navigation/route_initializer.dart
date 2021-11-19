@@ -1,7 +1,9 @@
 import 'package:doctor_bima/bloc/login/login_bloc.dart';
 import 'package:doctor_bima/models/doctors_list_model.dart';
 import 'package:doctor_bima/presentation/dashboard/doctor_details_screen.dart';
+import 'package:doctor_bima/presentation/dashboard/drag_drop_screen.dart';
 import 'package:doctor_bima/presentation/dashboard/file_picker_screen.dart';
+import 'package:doctor_bima/presentation/dashboard/long_press_screen.dart';
 import 'package:doctor_bima/presentation/firebaseAuth/login_screen.dart';
 import 'package:doctor_bima/presentation/firebaseAuth/otp_validation_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +34,18 @@ navigateToHomeScreen() {
 navigateToFilePickerScreen() {
   return MaterialPageRoute(builder: (context) {
     return FilePickerScreen();
+  });
+}
+
+navigateToDragDropScreen() {
+  return MaterialPageRoute(builder: (context) {
+    return DragDropScreen();
+  });
+}
+
+navigateToLongPressScreen() {
+  return MaterialPageRoute(builder: (context) {
+    return LongPressScreen();
   });
 }
 
