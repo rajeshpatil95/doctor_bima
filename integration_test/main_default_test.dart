@@ -1,4 +1,5 @@
 import 'package:doctor_bima/presentation/dashboard/doctor_details_screen.dart';
+import 'package:doctor_bima/presentation/dashboard/drag_drop_screen.dart';
 import 'package:doctor_bima/presentation/dashboard/home_screen.dart';
 import 'package:doctor_bima/presentation/dashboard/long_press_screen.dart';
 import 'package:doctor_bima/presentation/firebaseAuth/otp_validation_screen.dart';
@@ -95,7 +96,8 @@ void main() async {
       Text text = tester.firstWidget(textFind);
       expect(text.style.color, AppColors.black);
       await tester.pumpAndSettle(const Duration(seconds: 4));
-      final Finder firstListTile = find.byType(ListTile, skipOffstage: false).first;
+      final Finder firstListTile =
+          find.byType(ListTile, skipOffstage: false).first;
       await tester.longPress(firstListTile);
       await tester.pumpAndSettle(const Duration(seconds: 2));
 
@@ -103,21 +105,11 @@ void main() async {
       expect(menuText, findsOneWidget);
       await tester.tap(menuText);
       await tester.pumpAndSettle(const Duration(seconds: 4));
-      
+
       final longPressArrowBackBttn =
           find.byKey(const Key("long_press_screen_button_arrow_back"));
       await tester.tap(longPressArrowBackBttn);
       await tester.pumpAndSettle(const Duration(seconds: 10));
-
-
-
-
-
-
-
-
-
-
 
       //drap_drop_screen
       expect(find.byType(FloatingActionButton), findsWidgets);
@@ -126,23 +118,17 @@ void main() async {
       await tester.tap(dragDropBttn);
       await tester.pumpAndSettle(const Duration(seconds: 4));
 
-      
+      expect(find.byType(DragDropScreen), findsOneWidget);
+      final dragDropContainer =
+          find.byKey(const Key("drag_drop_screen_button_container"));
+      await tester.timedDrag(
+          dragDropContainer, Offset(500, 300), Duration(seconds: 2));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
 
       final dragDropArrowBackBttn =
           find.byKey(const Key("drag_drop_screen_button_arrow_back"));
       await tester.tap(dragDropArrowBackBttn);
       await tester.pumpAndSettle(const Duration(seconds: 10));
-
-
-
-
-
-
-
-
-
-
-
 
       //file_picker_screen
       expect(find.byType(FloatingActionButton), findsWidgets);
