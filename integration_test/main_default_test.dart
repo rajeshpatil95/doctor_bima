@@ -1,6 +1,8 @@
 import 'package:doctor_bima/presentation/dashboard/doctor_details_screen.dart';
 import 'package:doctor_bima/presentation/dashboard/home_screen.dart';
+import 'package:doctor_bima/presentation/dashboard/long_press_screen.dart';
 import 'package:doctor_bima/presentation/firebaseAuth/otp_validation_screen.dart';
+import 'package:doctor_bima/style/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -80,8 +82,70 @@ void main() async {
       await tester.pumpAndSettle(const Duration(seconds: 4));
       expect(find.byType(HomeScreen), findsOneWidget);
 
+      //long_press_screen
+      expect(find.byType(FloatingActionButton), findsWidgets);
+      final longPressBttn =
+          find.byKey(const Key("home_screen_button_long_press"));
+      await tester.tap(longPressBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 4));
+
+      expect(find.byType(LongPressScreen), findsOneWidget);
+      Finder textFind = find.text("List of Cities");
+      expect(textFind, findsOneWidget);
+      Text text = tester.firstWidget(textFind);
+      expect(text.style.color, AppColors.black);
+      await tester.pumpAndSettle(const Duration(seconds: 4));
+      final Finder firstListTile = find.byType(ListTile, skipOffstage: false).first;
+      await tester.longPress(firstListTile);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      Finder menuText = find.text("test1");
+      expect(menuText, findsOneWidget);
+      await tester.tap(menuText);
+      await tester.pumpAndSettle(const Duration(seconds: 4));
+      
+      final longPressArrowBackBttn =
+          find.byKey(const Key("long_press_screen_button_arrow_back"));
+      await tester.tap(longPressArrowBackBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 10));
+
+
+
+
+
+
+
+
+
+
+
+      //drap_drop_screen
+      expect(find.byType(FloatingActionButton), findsWidgets);
+      final dragDropBttn =
+          find.byKey(const Key("home_screen_button_drag_drop"));
+      await tester.tap(dragDropBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 4));
+
+      
+
+      final dragDropArrowBackBttn =
+          find.byKey(const Key("drag_drop_screen_button_arrow_back"));
+      await tester.tap(dragDropArrowBackBttn);
+      await tester.pumpAndSettle(const Duration(seconds: 10));
+
+
+
+
+
+
+
+
+
+
+
+
       //file_picker_screen
-      expect(find.byType(FloatingActionButton), findsOneWidget);
+      expect(find.byType(FloatingActionButton), findsWidgets);
       final fileUploadBttn =
           find.byKey(const Key("home_screen_button_file_upload"));
       await tester.tap(fileUploadBttn);
