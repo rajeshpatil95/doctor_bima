@@ -11,123 +11,53 @@ class DragDropScreen extends StatefulWidget {
 class _DragDropScreenState extends State<DragDropScreen>
     with TickerProviderStateMixin {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
+  double x = 100.0, y = 100.0, xPrev = 100.0, yPrev = 100.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: scaffoldKey,
-        appBar: AppBar(
-          centerTitle: false,
-          elevation: 0,
-          leading: IconButton(
-              key: const Key("drag_drop_screen_button_arrow_back"),
-              icon: Icon(Icons.arrow_back),
-              color: AppColors.accent,
-              onPressed: () {
-                Navigator.of(context).pop();
-              }),
-          iconTheme: IconThemeData(color: AppColors.primary),
-          title: Text("Drag & Drop"),
-          backgroundColor: AppColors.primary,
-        ),
-        body: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.only(top: 10, bottom: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Draggable(
-                key: const Key("drag_drop_screen_button_number"),
-                data: 5,
-                child: Container(
-                  width: 100.0,
-                  height: 100.0,
-                  child: Center(
-                    child: Text(
-                      "5",
-                      style: TextStyle(color: Colors.white, fontSize: 22.0),
-                    ),
-                  ),
-                  color: Colors.pink,
-                ),
-                feedback: Container(
-                  width: 100.0,
-                  height: 100.0,
-                  child: Center(
-                    child: Text(
-                      "5",
-                      style: TextStyle(color: Colors.white, fontSize: 22.0),
-                    ),
-                  ),
-                  color: Colors.pink,
-                ),
+      key: scaffoldKey,
+      appBar: AppBar(
+        centerTitle: false,
+        elevation: 0,
+        leading: IconButton(
+            key: const Key("drag_drop_screen_button_arrow_back"),
+            icon: Icon(Icons.arrow_back),
+            color: AppColors.accent,
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+        iconTheme: IconThemeData(color: AppColors.primary),
+        title: Text("Drag & Drop"),
+        backgroundColor: AppColors.primary,
+      ),
+      body: Stack(
+        children: [
+          Positioned(
+            left: x,
+            top: y,
+            child: GestureDetector(
+              onPanDown: (details) {
+                setState(() {
+                  xPrev = x - details.localPosition.dx;
+                  yPrev = y - details.localPosition.dy;
+                });
+              },
+              onPanUpdate: (details) {
+                setState(() {
+                  x = xPrev + details.localPosition.dx;
+                  y = yPrev + details.localPosition.dy;
+                });
+              },
+              child: Container(
+                width: 64,
+                height: 64,
+                color: AppColors.primary,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    width: 100.0,
-                    height: 100.0,
-                    color: Colors.green,
-                    child: DragTarget(
-                      key: const Key("drag_drop_screen_button_even"),
-                      builder:
-                          (context, List<int> candidateData, rejectedData) {
-                        print(candidateData);
-                        return Center(
-                            child: Text(
-                          "Even",
-                          style: TextStyle(color: Colors.white, fontSize: 22.0),
-                        ));
-                      },
-                      onWillAccept: (data) {
-                        return true;
-                      },
-                      onAccept: (data) {
-                        if (data % 2 == 0) {
-                          scaffoldKey.currentState.showSnackBar(
-                              SnackBar(content: Text("Correct!")));
-                        } else {
-                          scaffoldKey.currentState
-                              .showSnackBar(SnackBar(content: Text("Wrong!")));
-                        }
-                      },
-                    ),
-                  ),
-                  Container(
-                    width: 100.0,
-                    height: 100.0,
-                    color: Colors.deepPurple,
-                    child: DragTarget(
-                      key: const Key("drag_drop_screen_button_odd"),
-                      builder:
-                          (context, List<int> candidateData, rejectedData) {
-                        return Center(
-                            child: Text(
-                          "Odd",
-                          style: TextStyle(color: Colors.white, fontSize: 22.0),
-                        ));
-                      },
-                      onWillAccept: (data) {
-                        return true;
-                      },
-                      onAccept: (data) {
-                        if (data % 2 != 0) {
-                          scaffoldKey.currentState.showSnackBar(SnackBar(
-                              key: const Key(
-                                  "drag_drop_screen_snackbar_correct"),
-                              content: Text("Correct!")));
-                        } else {
-                          scaffoldKey.currentState.showSnackBar(SnackBar(
-                              key: const Key("drag_drop_screen_snackbar_wrong"),
-                              content: Text("Wrong!")));
-                        }
-                      },
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ));
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
