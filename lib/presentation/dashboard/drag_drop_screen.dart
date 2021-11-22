@@ -34,6 +34,7 @@ class _DragDropScreenState extends State<DragDropScreen>
       body: Stack(
         children: [
           Positioned(
+            key: const Key("drag_drop_screen_button_container"),
             left: x,
             top: y,
             child: GestureDetector(
