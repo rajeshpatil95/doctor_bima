@@ -28,7 +28,8 @@ void main() async {
   });
 
   group("DoctorBimaApp Test", () {
-    IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+    final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
+        as IntegrationTestWidgetsFlutterBinding;
     testWidgets("Testing DoctorBimaApp E2E", (WidgetTester tester) async {
       launchApp.main();
       await tester.pumpAndSettle(const Duration(seconds: 2));
