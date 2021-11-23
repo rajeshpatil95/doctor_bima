@@ -24,4 +24,4 @@ String _encodeJson(Map<String, dynamic> jsonObject) {
 
 const _prettyEncoder = JsonEncoder.withIndent('  ');
 const _testOutputFilename = 'integration_response_data';
-const _destinationDirectory = 'integration_test';
+const _destinationDirectory = 'integration_test/testData';
